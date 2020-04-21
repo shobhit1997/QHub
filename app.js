@@ -5,6 +5,8 @@ const bodyParser=require('body-parser');
 const facultyRoutes=require('./routes/FacultyRoutes');
 const subjectRoutes=require('./routes/SubjectRoutes');
 const unitRoutes=require('./routes/UnitRoutes');
+const questionRoutes=require('./routes/QuestionRoutes');
+const assignmentRoutes = require('./routes/AssignmentRoutes');
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
 app.use(function(req,res,next){
@@ -22,4 +24,6 @@ app.get("/", function(req, res) {
 app.use('/api/faculty',facultyRoutes);
 app.use('/api/subject',subjectRoutes);
 app.use('/api/unit',unitRoutes);
+app.use('/api/question',questionRoutes);
+app.use('/api/assignment',assignmentRoutes);
 module.exports=app;

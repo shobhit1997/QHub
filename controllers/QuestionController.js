@@ -17,7 +17,7 @@ async function create(req,res){
 }
 async function get(req,res){
     try{
-        var question=await QuestionManager.findQuestions(R.pick(['id','subject_code','subject_id'],req.query))
+        var question=await QuestionManager.findQuestions(R.pick(['id','subject_code','subject_id','unit_id','unit_no'],req.query))
         if(question){
             res.send(question)
         }
@@ -31,7 +31,7 @@ async function get(req,res){
     }
 }
 async function update(req,res){
-    var data=R.pick(['name','question_no','subject_id','cognitive_level'],req.body);
+    var data=R.pick(['question','unit_id','image','cognitive_level','min_marks','max_marks'],req.body);
     try{
         var result=await QuestionManager.update(req.query.id,data);
         if(result==1){
