@@ -58,5 +58,6 @@ module.exports={
     findAssignments,
     update:Assignment.update,
     addQuestionsToAssignment,
-    getQuestionsOfAssignment:Assignment.getQuestionsOfAssignment
+    getQuestionsOfAssignment:Assignment.getQuestionsOfAssignment,
+    removeQuestionsFromAssignment:Assignment.removeQuestionsFromAssignment
 }

@@ -20,9 +20,38 @@ async function create(req,res){
 async function addQuestions(req,res){
     try{
         var data=req.body.questions;
+        var assignment=await AssignmentManager.findAssignments({id:req.query.id});
+        if(!assignment || assignment.length==0){
+            return res.status(400).send({message:"Invalid Assignment Id"});
+        }
+        assignment=assignment[0];
         var questions=await AssignmentManager.addQuestionsToAssignment(req.query.id,data);
+        console.log(questions)
         if(questions){
+            await AssignmentManager.update(assignment.id,{question_count:assignment.question_count+questions.length})
             res.send({message:"Questions Added Successfully"})
+        }
+        else{
+            res.status(400).send({message:"Failed"})
+        }
+    }
+    catch(e){
+        console.log(e)
+        res.sendStatus(500);
+    }
+}
+async function removeQuestions(req,res){
+    try{
+        var data=req.body.questions;
+        var assignment=await AssignmentManager.findAssignments({id:req.query.id});
+        if(!assignment || assignment.length==0){
+            return res.status(400).send({message:"Invalid Assignment Id"});
+        }
+        assignment=assignment[0];
+        var questions=await AssignmentManager.removeQuestionsFromAssignment(req.query.id,data);
+        if(questions){
+            await AssignmentManager.update(assignment.id,{question_count:assignment.question_count-questions})
+            res.send({message:"Questions Removed Successfully"})
         }
         else{
             res.status(400).send({message:"Failed"})
@@ -64,7 +93,7 @@ async function get(req,res){
     }
 }
 async function update(req,res){
-    var data=R.pick(['assignment_no','unit_id','branch','year','section','question_count','last_date_of_submission'],req.body);
+    var data=R.pick(['assignment_no','unit_id','branch','year','section','last_date_of_submission'],req.body);
     try{
         var result=await AssignmentManager.update(req.query.id,data);
         if(result==1){
@@ -85,4 +114,5 @@ module.exports={
     update,
     addQuestions,
     getQuestions,
+    removeQuestions,
 }

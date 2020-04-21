@@ -33,10 +33,17 @@ function getQuestionsOfAssignment(assignmentId){
             .join('questions',"question_mapping.question_id",'=','questions.id')
             .where({'assignment_id':assignmentId})
 }
+function removeQuestionsFromAssignment(assignmentId,questions){
+    return knex('question_mapping')
+            .where({assignment_id:assignmentId})
+            .whereIn('question_id',questions)
+            .del();
+}
 module.exports={
     createAssignment,
     findAssignments,
     update,
     addQuestionsToAssignment,
-    getQuestionsOfAssignment
+    getQuestionsOfAssignment,
+    removeQuestionsFromAssignment
 }
