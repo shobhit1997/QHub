@@ -15,8 +15,16 @@ function findSubject(searchData){
 async function update(subjectId,data){
     return await knex(DB_NAME).where({id:subjectId}).update(data);
 }
+function addCourseOutcomes(data){
+    return knex('course_outcomes').insert(data);
+}
+function getCourseOutcomes(subjectId){
+    return knex('course_outcomes').where({subject_id:subjectId});
+}
 module.exports={
     createSubject,
     findSubject,
-    update
+    update,
+    addCourseOutcomes,
+    getCourseOutcomes,
 }

@@ -16,10 +16,11 @@ function findAssignments(searchData){
             .join("units","assignments.unit_id",'=','units.id')
             .join("subjects","units.subject_id",'=',"subjects.id")
             .join("faculties","assignments.created_by","=","faculties.id")
-            .select("assignments.id","assignment_no","type","branch","year","section","question_count","last_date_of_submission","unit_id")
-            .select('units.name as unit_name',"units.cognitive_level","units.subject_id")
+            .select("assignments.id","assignment_no","type","branch","year","section","question_count","unit_id")
+            .select('units.name as unit_name',"units.cognitive_level","units.subject_id","unit_no")
             .select("subjects.subject_code","subjects.name as subject_name")
             .select("faculties.name as fuculty_name","faculties.username as faculty_username")
+            .select(knex.raw("DATE_FORMAT(last_date_of_submission,'%D %M %Y') as last_date_of_submission"))
             .where(searchData);
 }
 async function update(assignmentId,data){

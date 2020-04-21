@@ -1,5 +1,8 @@
 const AssignmentManager = require('../modelManagers/AssignmentManager')
+const SubjectManager = require('../modelManagers/SubjectManager');
 const R= require('ramda')
+const path=require('path');
+const docs = require('../utils/generateDocs');
 async function create(req,res){
     try{
         var data=req.body;
@@ -108,6 +111,28 @@ async function update(req,res){
         res.sendStatus(500);
     }
 }
+async function generateAssignment(req,res){
+    try{
+        if(!req.query.id){
+            return res.status(400).send({message:"Please provide an assignment id"});
+        }
+        var assignment=await AssignmentManager.findAssignments({id:req.query.id});
+        if(!assignment || assignment.length==0){
+            return res.status(400).send("Invalid Assignment Id");
+        }
+        assignment=assignment[0];
+        course_outcomes=SubjectManager.getCourseOutcomes(assignment.subject_id);
+        assignment.course_outcomes=course_outcomes;
+        await docs.generateAssignment(assignment);
+        var filePath= path.resolve(__dirname, `../outputAssignments/${assignment.subject_name}_Assignment ${assignment.assignment_no}.docx`)
+        // res.send({message:"successfull"});
+        res.download(filePath);
+    }
+    catch(e){
+        console.log(e);
+        res.sendStatus(500);
+    }
+}
 module.exports={
     create,
     get,
@@ -115,4 +140,5 @@ module.exports={
     addQuestions,
     getQuestions,
     removeQuestions,
+    generateAssignment,
 }

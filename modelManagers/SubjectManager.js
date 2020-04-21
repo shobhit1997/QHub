@@ -20,4 +20,7 @@ module.exports={
     createSubject,
     findSubject,
     update:Subject.update,
+    getCourseOutcomes:Subject.getCourseOutcomes,
+    addCourseOutcomes:Subject.addCourseOutcomes,
+
 }

@@ -51,8 +51,47 @@ async function update(req,res){
         res.sendStatus(500);
     }
 }
+async function getCourseOutcomes(req,res){
+    try{
+        var outcomes = await SubjectManager.getCourseOutcomes(req.query.id);
+        if(outcomes && outcomes.length>0){
+            res.send(outcomes);
+        }
+        else{
+            res.status(400).send({message:"Invalid Id or outcomes not added"})
+        }
+    }
+    catch(e){
+        console.log(e);
+        res.sendStatus(500);
+    }
+}
+async function addCourseOutcomes(req,res){
+    try{
+        if(!req.query.id){
+            return res.status(400).send({message:"Please provide a subject id"})
+        }
+        var subject = await SubjectManager.findSubject({id:req.query.id});
+        if(!subject || subject.length==0){
+            return res.status(400).send({message:"Please provide a valid subject id"})
+        }
+        outcomes=req.body;
+        outcomes=outcomes.map(o=>{
+            o.subject_id=req.query.id
+            return o;
+        });
+        await SubjectManager.addCourseOutcomes(outcomes);
+        res.send({message:"Successful"});
+    }
+    catch(e){
+        console.log(e)
+        res.sendStatus(500);
+    }
+}
 module.exports={
     create,
     get,
     update,
+    addCourseOutcomes,
+    getCourseOutcomes,
 }
