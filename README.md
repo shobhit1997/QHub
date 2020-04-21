@@ -13,6 +13,7 @@ Introduction
 2. run npm i
 3. copy example.env to .env
 4. Visit http://oauthV2.shobhitagarwal.me and create a infoconnect oauth project
+5. Also visit https://github.com/shobhit1997/OAuth/tree/v2 for oauth documentation
 5. Replace the credentials in the .env file
 6. import the qhub_backup.sql file in mysql
 7. Replace the credentials in .env file
