@@ -47,7 +47,7 @@ CREATE TABLE `assignments` (
 
 LOCK TABLES `assignments` WRITE;
 /*!40000 ALTER TABLE `assignments` DISABLE KEYS */;
-INSERT INTO `assignments` VALUES (11,1,1,'automatic','CSE',2,2,2,2,'2020-01-01 10:10:10'),(12,2,2,'manual','CSE',2,2,6,2,'2020-01-01 10:10:10'),(13,2,2,'manual','CSE',2,2,2,2,'2020-01-01 10:10:10');
+INSERT INTO `assignments` VALUES (11,1,1,'automatic','CSE',2,2,2,1,'2020-01-01 10:10:10'),(12,2,2,'manual','CSE',2,2,6,2,'2020-01-01 10:10:10'),(13,2,2,'manual','CSE',2,2,2,2,'2020-01-01 10:10:10');
 /*!40000 ALTER TABLE `assignments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -119,6 +119,7 @@ CREATE TABLE `faculties` (
   `email` varchar(255) DEFAULT NULL,
   `department` varchar(255) DEFAULT NULL,
   `info_token` varchar(255) NOT NULL,
+  `info_profile_id` varchar(10) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -129,8 +130,35 @@ CREATE TABLE `faculties` (
 
 LOCK TABLES `faculties` WRITE;
 /*!40000 ALTER TABLE `faculties` DISABLE KEYS */;
-INSERT INTO `faculties` VALUES (1,'Nibble Computer Society','ncs',NULL,'club','ab504a28ef8490f183fa3bed6f402730a1113deb'),(2,'Shobhit Agarwal','16it028','shobhitagarwal756@gmail.com','club','9c674b4cdc038575da6d3817638e31384f1d1ba4');
+INSERT INTO `faculties` VALUES (1,'Nibble Computer Society','ncs',NULL,'club','ab504a28ef8490f183fa3bed6f402730a1113deb','482'),(2,'Shobhit Agarwal','16it028','shobhitagarwal756@gmail.com','club','9c674b4cdc038575da6d3817638e31384f1d1ba4','14623');
 /*!40000 ALTER TABLE `faculties` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `images`
+--
+
+DROP TABLE IF EXISTS `images`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `images` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `url` varchar(255) NOT NULL,
+  `faculty_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `faculty_id` (`faculty_id`),
+  CONSTRAINT `images_ibfk_1` FOREIGN KEY (`faculty_id`) REFERENCES `faculties` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `images`
+--
+
+LOCK TABLES `images` WRITE;
+/*!40000 ALTER TABLE `images` DISABLE KEYS */;
+INSERT INTO `images` VALUES (1,'https://storage.googleapis.com/qhub_assignments/1587642278781shobhit.b138c6d.png',2);
+/*!40000 ALTER TABLE `images` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -348,4 +376,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-21 23:09:17
+-- Dump completed on 2020-04-24 11:13:33

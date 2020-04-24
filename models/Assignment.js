@@ -6,8 +6,7 @@ async function createAssignment(assignmentData){
     var id=await knex(DB_NAME).insert(assignmentData);
     return findAssignments({id});
 }
-function findAssignments(searchData){
-    console.log(searchData);
+function findAssignments(searchData){;
     if(searchData.id){
         searchData['assignments.id']=searchData.id;
         delete searchData.id;
@@ -19,7 +18,23 @@ function findAssignments(searchData){
             .select("assignments.id","assignment_no","type","branch","year","section","question_count","unit_id")
             .select('units.name as unit_name',"units.cognitive_level","units.subject_id","unit_no")
             .select("subjects.subject_code","subjects.name as subject_name")
-            .select("faculties.name as fuculty_name","faculties.username as faculty_username")
+            .select("faculties.name as faculty_name","faculties.username as faculty_username")
+            .select(knex.raw("DATE_FORMAT(last_date_of_submission,'%D %M %Y') as last_date_of_submission"))
+            .where(searchData);
+}
+function getAssignmentDetailsForInfoconnect(searchData){
+    if(searchData.id){
+        searchData['assignments.id']=searchData.id;
+        delete searchData.id;
+    }
+    return knex(DB_NAME)
+            .join("units","assignments.unit_id",'=','units.id')
+            .join("subjects","units.subject_id",'=',"subjects.id")
+            .join("faculties","assignments.created_by","=","faculties.id")
+            .select("assignments.id","assignment_no","branch","year","section")
+            .select('units.name as unit_name')
+            .select("subjects.subject_code","subjects.name as subject_name")
+            .select("faculties.name as faculty_name","faculties.username as faculty_username","info_token","info_profile_id")
             .select(knex.raw("DATE_FORMAT(last_date_of_submission,'%D %M %Y') as last_date_of_submission"))
             .where(searchData);
 }
@@ -46,5 +61,6 @@ module.exports={
     update,
     addQuestionsToAssignment,
     getQuestionsOfAssignment,
-    removeQuestionsFromAssignment
+    removeQuestionsFromAssignment,
+    getAssignmentDetailsForInfoconnect
 }

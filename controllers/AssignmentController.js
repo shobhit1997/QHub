@@ -2,7 +2,9 @@ const AssignmentManager = require('../modelManagers/AssignmentManager')
 const SubjectManager = require('../modelManagers/SubjectManager');
 const R= require('ramda')
 const path=require('path');
+const fs= require('fs');
 const docs = require('../utils/generateDocs');
+const infoconnectUtils = require('../utils/infoconnectUtil');
 async function create(req,res){
     try{
         var data=req.body;
@@ -133,6 +135,33 @@ async function generateAssignment(req,res){
         res.sendStatus(500);
     }
 }
+async function uploadAssignment(req,res){
+    try{
+        if(!req.query.id){
+            res.status(400).send({message:"Please provide an assignment id"})
+        }
+        let assignment=await AssignmentManager.getAssignmentDetailsForInfoconnect({id:req.query.id});
+        if(!assignment){
+            res.status(400).send({message:"Please provide a valid assignment id"})
+        }
+        var filePath= path.resolve(__dirname, `../outputAssignments/${assignment.fileName}`);
+        if(!fs.existsSync(filePath)){
+            res.status(400).send({message:"Please generate assignment before uploading"})
+        }
+        let result=await infoconnectUtils.uploadAssignmment(assignment);
+        if(result){
+            res.send({message:"Successful"})
+        }
+        else{
+            res.sendStatus(500);
+        }
+    }
+    catch(e){
+        console.log(e)
+        res.sendStatus(500);
+    }
+
+}
 module.exports={
     create,
     get,
@@ -141,4 +170,5 @@ module.exports={
     getQuestions,
     removeQuestions,
     generateAssignment,
+    uploadAssignment
 }
