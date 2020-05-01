@@ -31,7 +31,7 @@ async function get(req,res){
     }
 }
 async function update(req,res){
-    var data=R.pick(['name','unit_no','subject_id','cognitive_level'],req.body);
+    var data=R.pick(['name','unit_no','subject_id','outcome_id'],req.body);
     try{
         var result=await UnitManager.update(req.query.id,data);
         if(result==1){

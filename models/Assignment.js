@@ -16,7 +16,7 @@ function findAssignments(searchData){;
             .join("subjects","units.subject_id",'=',"subjects.id")
             .join("faculties","assignments.created_by","=","faculties.id")
             .select("assignments.id","assignment_no","type","branch","year","section","question_count","unit_id")
-            .select('units.name as unit_name',"units.cognitive_level","units.subject_id","unit_no")
+            .select('units.name as unit_name',"units.outcome_id","units.subject_id","unit_no")
             .select("subjects.subject_code","subjects.name as subject_name")
             .select("faculties.name as faculty_name","faculties.username as faculty_username")
             .select(knex.raw("DATE_FORMAT(last_date_of_submission,'%D %M %Y') as last_date_of_submission"))
