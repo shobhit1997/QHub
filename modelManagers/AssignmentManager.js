@@ -53,11 +53,24 @@ async function addQuestionsToAssignment(assignmentId,questions){
     })
     return Assignment.addQuestionsToAssignment(questions)
 }
+async function getAssignmentDetailsForInfoconnect(searchData){
+    let assignment=await Assignment.getAssignmentDetailsForInfoconnect(searchData);
+    if(!assignment || assignment.length==0){
+        return null;
+    }
+    assignment=assignment[0]
+    console.log(assignment);
+    assignment.title=`Assignment of ${assignment.unit_name},${assignment.subject_name}(${assignment.subject_code}) for ${assignment.year} year ${assignment.branch} ${assignment.section}`
+    assignment.description=`PFA the assignment of ${assignment.unit_name},${assignment.subject_name}(${assignment.subject_code}) for ${assignment.year} ${assignment.branch} ${assignment.section}\n Last date of submission ${assignment.last_date_of_submission}\n Concerned Faculty ${assignment.faculty_name}`
+    assignment.fileName =`${assignment.subject_name}_Assignment ${assignment.assignment_no}.docx`;
+    return assignment;
+}
 module.exports={
     createAssignment,
     findAssignments,
     update:Assignment.update,
     addQuestionsToAssignment,
     getQuestionsOfAssignment:Assignment.getQuestionsOfAssignment,
-    removeQuestionsFromAssignment:Assignment.removeQuestionsFromAssignment
+    removeQuestionsFromAssignment:Assignment.removeQuestionsFromAssignment,
+    getAssignmentDetailsForInfoconnect
 }

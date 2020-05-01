@@ -10,4 +10,5 @@ router.route('/question').post(authenticate,AssignmentController.addQuestions);
 router.route('/question').get(authenticate,AssignmentController.getQuestions);
 router.route('/question').delete(authenticate,AssignmentController.removeQuestions);
 router.route('/generateAssignment').get(authenticate,AssignmentController.generateAssignment);
+router.route('/postToInfoconnect').get(authenticate,AssignmentController.uploadAssignment);
 module.exports=router;

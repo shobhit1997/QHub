@@ -14,7 +14,7 @@ function findUnits(searchData){
     }
     return knex(DB_NAME)
             .join("subjects","units.subject_id",'=',"subjects.id")
-            .select('units.id','units.name','subject_code','subjects.name as subject_name','cognitive_level','unit_no')
+            .select('units.id','units.name','subject_code','subjects.name as subject_name','outcome_id','unit_no')
             .where(searchData);
 }
 async function update(unitId,data){

@@ -31,7 +31,7 @@ async function get(req,res){
     }
 }
 async function update(req,res){
-    var data=R.pick(['question','unit_id','image','cognitive_level','min_marks','max_marks'],req.body);
+    var data=R.pick(['question','unit_id','image','knowledge_level','min_marks','max_marks'],req.body);
     try{
         var result=await QuestionManager.update(req.query.id,data);
         if(result==1){

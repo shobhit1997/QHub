@@ -54,6 +54,7 @@ async function update(req,res){
 async function getCourseOutcomes(req,res){
     try{
         var outcomes = await SubjectManager.getCourseOutcomes(req.query.id);
+        console.log(outcomes);
         if(outcomes && outcomes.length>0){
             res.send(outcomes);
         }
@@ -76,11 +77,13 @@ async function addCourseOutcomes(req,res){
             return res.status(400).send({message:"Please provide a valid subject id"})
         }
         outcomes=req.body;
+        k_levels=R.pluck("k_level",outcomes);
         outcomes=outcomes.map(o=>{
             o.subject_id=req.query.id
+            delete o.k_level;
             return o;
         });
-        await SubjectManager.addCourseOutcomes(outcomes);
+        await SubjectManager.addCourseOutcomes(outcomes,k_levels);
         res.send({message:"Successful"});
     }
     catch(e){
