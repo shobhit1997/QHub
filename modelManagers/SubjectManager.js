@@ -8,9 +8,21 @@ async function createSubject(data) {
     return null;
 }
 async function findSubject(searchData) {
-    var subject = await Subject.findSubject(searchData);
-    if (subject && subject.length > 0) {
-        return subject;
+    var subjects = await Subject.findSubject(searchData);
+    if (subjects && subjects.length > 0) {
+        subjects = await Promise.all(
+            subjects.map((subject) => {
+                return Subject.getCourseOutcomes(subject.id).then((outcomes) => {
+                    if (outcomes && outcomes.length > 0) {
+                        subject.outcomes_added = true;
+                    } else {
+                        subject.outcomes_added = false;
+                    }
+                    return subject;
+                });
+            })
+        );
+        return subjects;
     } else {
         return null;
     }

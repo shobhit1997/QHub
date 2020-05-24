@@ -1,3 +1,4 @@
+const R = require("ramda");
 const Unit = require("../models/Unit");
 async function createUnit(data) {
     console.log(data);
@@ -8,9 +9,15 @@ async function createUnit(data) {
     return null;
 }
 async function findUnits(searchData) {
-    var unit = await Unit.findUnits(searchData);
-    if (unit) {
-        return unit;
+    var units = await Unit.findUnits(searchData);
+    if (units) {
+        return units.map((unit) => {
+            unit.k_level = R.split(",", unit.k_level);
+            unit.k_level = unit.k_level.map((level) => {
+                return parseInt(level);
+            });
+            return unit;
+        });
     } else {
         return null;
     }

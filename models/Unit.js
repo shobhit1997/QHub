@@ -13,15 +13,32 @@ function findUnits(searchData) {
         searchData["units.id"] = searchData.id;
         delete searchData.id;
     }
+    if (searchData.subject_id) {
+        searchData["units.subject_id"] = searchData.subject_id;
+        delete searchData.subject_id;
+    }
     return knex(DB_NAME)
         .join("subjects", "units.subject_id", "=", "subjects.id")
+        .join("course_outcomes as c", "c.id", "=", "units.outcome_id")
+        .join(
+            knex("c_outcome_k_level_mapping as m")
+            .join("knowledge_levels as k", "m.k_id", "=", "k.id")
+            .select("m.outcome_id")
+            .select(knex.raw("Group_Concat(k.id) as k_level"))
+            .groupBy("m.outcome_id")
+            .as("x"),
+            "c.id",
+            "=",
+            "x.outcome_id"
+        )
         .select(
             "units.id",
             "units.name",
             "subject_code",
             "subjects.name as subject_name",
-            "outcome_id",
-            "unit_no"
+            "units.outcome_id",
+            "unit_no",
+            "k_level"
         )
         .where(searchData);
 }
