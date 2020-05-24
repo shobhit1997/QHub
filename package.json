@@ -1,35 +1,36 @@
 {
-  "name": "qhub",
-  "version": "1.0.0",
-  "description": "QHub- A Question Bank",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/shobhit1997/QHub.git"
-  },
-  "author": "Shobhit",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/shobhit1997/QHub/issues"
-  },
-  "homepage": "https://github.com/shobhit1997/QHub#readme",
-  "dependencies": {
-    "@google-cloud/storage": "^4.7.0",
-    "axios": "^0.19.2",
-    "body-parser": "^1.19.0",
-    "docx-templates": "^4.0.0",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "isomorphic-fetch": "^2.2.1",
-    "jsonwebtoken": "^8.5.1",
-    "knex": "^0.21.0",
-    "multer": "^1.4.2",
-    "mysql": "^2.18.1",
-    "ramda": "^0.27.0",
-    "request": "^2.88.2",
-    "request-promise": "^4.2.5"
-  }
+    "name": "qhub",
+    "version": "1.0.0",
+    "description": "QHub- A Question Bank",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/shobhit1997/QHub.git"
+    },
+    "author": "Shobhit",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/shobhit1997/QHub/issues"
+    },
+    "homepage": "https://github.com/shobhit1997/QHub#readme",
+    "dependencies": {
+        "@google-cloud/storage": "^4.7.0",
+        "axios": "^0.19.2",
+        "body-parser": "^1.19.0",
+        "docx-templates": "^4.0.0",
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "isomorphic-fetch": "^2.2.1",
+        "jsonwebtoken": "^8.5.1",
+        "knex": "^0.21.0",
+        "multer": "^1.4.2",
+        "mysql": "^2.18.1",
+        "ramda": "^0.27.0",
+        "request": "^2.88.2",
+        "request-promise": "^4.2.5"
+    }
 }

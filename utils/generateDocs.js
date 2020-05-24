@@ -47,7 +47,7 @@ async function generateQuestionPaper(question_paper){
           return type==='compulsary';
         }
       }
-  })
+    })
     
   fs.writeFileSync(path.resolve(__dirname, `../outputQuestionPapers/${question_paper.subject_name}_Exam ${question_paper.exam}.docx`), buffer)
 }
