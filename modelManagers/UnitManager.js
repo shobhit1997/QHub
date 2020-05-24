@@ -1,23 +1,22 @@
-const Unit = require('../models/Unit')
-async function createUnit(data){
+const Unit = require("../models/Unit");
+async function createUnit(data) {
     console.log(data);
-    var unit=await Unit.createUnit(data);
-    if(unit){
+    var unit = await Unit.createUnit(data);
+    if (unit) {
         return unit;
     }
     return null;
 }
-async function findUnits(searchData){
+async function findUnits(searchData) {
     var unit = await Unit.findUnits(searchData);
-    if(unit){
+    if (unit) {
         return unit;
-    }
-    else{
+    } else {
         return null;
     }
 }
-module.exports={
+module.exports = {
     createUnit,
     findUnits,
-    update:Unit.update,
-}
+    update: Unit.update,
+};

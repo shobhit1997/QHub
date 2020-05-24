@@ -1,23 +1,22 @@
-const Question = require('../models/Question')
-async function createQuestion(data){
+const Question = require("../models/Question");
+async function createQuestion(data) {
     console.log(data);
-    var question=await Question.createQuestion(data);
-    if(question){
+    var question = await Question.createQuestion(data);
+    if (question) {
         return question;
     }
     return null;
 }
-async function findQuestions(searchData){
+async function findQuestions(searchData) {
     var question = await Question.findQuestions(searchData);
-    if(question){
+    if (question) {
         return question;
-    }
-    else{
+    } else {
         return null;
     }
 }
-module.exports={
+module.exports = {
     createQuestion,
     findQuestions,
-    update:Question.update,
-}
+    update: Question.update,
+};

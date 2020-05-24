@@ -1,3 +1,5 @@
 .env
 node_modules/
 storage_key.json
+.vscode/
+Select.sql

@@ -1,5 +1,5 @@
-const Utility = require('../models/Utility')
-module.exports={
-    storeImage:Utility.storeImages,
-    findImages:Utility.findImages
-}
+const Utility = require("../models/Utility");
+module.exports = {
+    storeImage: Utility.storeImages,
+    findImages: Utility.findImages,
+};
