@@ -19,7 +19,7 @@
     "homepage": "https://github.com/shobhit1997/QHub#readme",
     "dependencies": {
         "@google-cloud/storage": "^4.7.0",
-        "axios": "^0.19.2",
+        "axios": "^0.21.1",
         "body-parser": "^1.19.0",
         "docx-templates": "^4.0.0",
         "dotenv": "^8.2.0",
